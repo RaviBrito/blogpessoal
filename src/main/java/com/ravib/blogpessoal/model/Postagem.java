@@ -4,35 +4,46 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity // definindo como entidade cria tb
-@Table(name = "tb_postagens") // nome da tabela
+@Entity
+@Table(name = "tb_postagens")
+public class Postagem {
 
-public class Postagem { // criaçao de atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "O Atributo Titulo é obrigatorio")
-	@Size(min = 5, max = 100, message = "O Atributo titulo deve conter no minimo 05 e no máximo 100 caractteres")
+	@NotBlank(message = "O atributo título é Obrigatório!")
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String titulo;
 
-	@NotBlank(message = "O Atributo texto é obrigatorio")
-	@Size(min = 5, max = 100, message = "O Atributo texto deve conter no minimo 10 e no máximo 1000 caractteres")
+	@NotBlank(message = "O atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
 	private String texto;
 
 	@UpdateTimestamp
 	private LocalDateTime data;
 
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Long id) {
@@ -40,7 +51,7 @@ public class Postagem { // criaçao de atributos
 	}
 
 	public String getTitulo() {
-		return titulo;
+		return this.titulo;
 	}
 
 	public void setTitulo(String titulo) {
@@ -48,7 +59,7 @@ public class Postagem { // criaçao de atributos
 	}
 
 	public String getTexto() {
-		return texto;
+		return this.texto;
 	}
 
 	public void setTexto(String texto) {
@@ -56,11 +67,27 @@ public class Postagem { // criaçao de atributos
 	}
 
 	public LocalDateTime getData() {
-		return data;
+		return this.data;
 	}
 
 	public void setData(LocalDateTime data) {
 		this.data = data;
+	}
+
+	public Tema getTema() {
+		return this.tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+
+	public Usuario getUsuarios() {
+		return usuario;
+	}
+
+	public void setUsuarios(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 
