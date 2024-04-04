@@ -23,7 +23,7 @@ import jakarta.validation.constraints.Size;
 public class Usuario {
 	
 	
-	public Usuario(long id, String nome,String usuario, String senha, String foto, String password) {
+	public Usuario(long id, String nome,String usuario, String senha, String foto) {
 		super();
 		this.id = id;
 		this.nome = nome;
