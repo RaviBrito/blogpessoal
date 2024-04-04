@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,17 +22,21 @@ public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Identificador único para cada postagem. ", example = "1", required = true)
 	private Long id;
 
 	@NotBlank(message = "O atributo título é Obrigatório!")
 	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
+	@Schema(description = "Armazena o titulo da postagem.", example = "Dia lindo", required = true)
 	private String titulo;
 
 	@NotBlank(message = "O atributo texto é Obrigatório!")
 	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
+	@Schema(description = "Armazena o tecto da postagem. ", example = "Esse dia foi cheio de alegrias e emoções", required = true)
 	private String texto;
 
 	@UpdateTimestamp
+	@Schema(description = "Armazena a data e hora da postagem. ", example = "18:39 - 28/03/2024", required = true)
 	private LocalDateTime data;
 
 	@ManyToOne
@@ -81,12 +86,12 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-
-	public Usuario getUsuarios() {
+	
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuarios(Usuario usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,13 +22,16 @@ public class Tema {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Identificador único para cada tema. ", example = "1", required = true)
 	private Long id;
 
 	@NotNull(message = "O Atributo Descrição é obrigatório")
+	@Schema(description = "Campo destinado a descrição do tema.", example = "Fotos", required = true)
 	private String descricao;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
+	@Schema(description = "Campo destinado ao armazenamento do nome do tema.", example = "Fotos tiradas na natureza", required = true)
 	private List<Postagem> postagem;
 
 	public Long getId() {
