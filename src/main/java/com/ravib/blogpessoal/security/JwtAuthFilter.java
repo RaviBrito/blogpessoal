@@ -35,8 +35,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String username = null;
-    
-        try{
+
+        try {
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
                 username = jwtService.extractUsername(token);
@@ -44,18 +44,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                    
+
                 if (jwtService.validateToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-            
+
             }
             filterChain.doFilter(request, response);
 
-        }catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException 
-                | SignatureException | ResponseStatusException e){
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException
+                 | SignatureException | ResponseStatusException e) {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             return;
         }
