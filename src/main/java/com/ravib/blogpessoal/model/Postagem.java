@@ -1,3 +1,4 @@
+
 package com.ravib.blogpessoal.model;
 
 import java.time.LocalDateTime;
@@ -97,3 +98,4 @@ public class Postagem {
 	
 
 }
+

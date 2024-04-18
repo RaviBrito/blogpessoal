@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ravib.blogpessoal.model.Tema;
 
-
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long> {
 
